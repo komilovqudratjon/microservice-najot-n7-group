@@ -5,12 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-
+/**
+ * Hello world!
+ *
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
-public class Auth {
+@EnableFeignClients(
+        basePackages = "uz.najot"
+)
+public class OrderApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Auth.class, args);
+        SpringApplication.run(OrderApplication.class, args);
     }
 }

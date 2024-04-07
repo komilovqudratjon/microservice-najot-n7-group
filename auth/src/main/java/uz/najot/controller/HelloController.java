@@ -1,12 +1,11 @@
 package uz.najot.controller;
 
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uz.najot.exceptions.UserNotFoundEx;
+import uz.najot.order.UserIsActive;
 import uz.najot.repository.UserRepository;
 import uz.najot.service.AuthService;
 
@@ -26,10 +25,10 @@ public class HelloController {
 
     private final UserRepository userRepository;
 
-
-    @GetMapping("/hello")
-    public String login() {
-        return "Hello World!";
+    @GetMapping("/get-user/{id}")
+    public UserIsActive getUser(@PathVariable String id) {
+        log.info("ORDER SERVICE");
+        return new UserIsActive(userRepository.findById(Long.valueOf(id)).orElseThrow(() -> new UserNotFoundEx("User not found")).isActive());
     }
 
     @GetMapping("/admin")
@@ -38,7 +37,7 @@ public class HelloController {
     }
 
     @GetMapping("/user")
-//    @PreAuthorize("hasRole('ROLE_USER')")
+    @PermitAll
     public String user(@RequestParam String username) {
         userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundEx("User not found"));
         return "Hello World!";

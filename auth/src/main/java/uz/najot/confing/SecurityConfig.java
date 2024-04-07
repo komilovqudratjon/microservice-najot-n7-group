@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,8 +35,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .addFilterAfter(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable()
-                .cors().disable()
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
@@ -44,9 +45,9 @@ public class SecurityConfig {
                         register.
                                 requestMatchers("/auth/**").permitAll()
 //                                .requestMatchers("/gratings/**").permitAll()
-                                .requestMatchers("/attachment/**").permitAll()
-                                .requestMatchers("/gratings/user").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/gratings/admin").hasRole("ADMIN")
+                                .requestMatchers("/gratings/get-user/**").permitAll()
+//                                .requestMatchers("/gratings/user").hasAnyRole("USER","ADMIN")
+//                                .requestMatchers("/gratings/admin").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 );
         return httpSecurity.build();

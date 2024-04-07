@@ -8,31 +8,14 @@
     </parent>
 
     <groupId>uz.najot</groupId>
-    <artifactId>order</artifactId>
+    <artifactId>feign-clients</artifactId>
     <packaging>jar</packaging>
 
-    <name>order</name>
+    <name>feign-clients</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>uz.najot</groupId>
-            <artifactId>feign-clients</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-    </dependencies>
 </project>
