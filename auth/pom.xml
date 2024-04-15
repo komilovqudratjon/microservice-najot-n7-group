@@ -117,6 +117,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
         <dependency>
             <groupId>uz.najot</groupId>
             <artifactId>feign-clients</artifactId>

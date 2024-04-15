@@ -11,6 +11,7 @@
         <module name="feign-clients" />
         <module name="product" />
         <module name="auth" />
+        <module name="gateway" />
         <module name="order" />
       </profile>
     </annotationProcessing>

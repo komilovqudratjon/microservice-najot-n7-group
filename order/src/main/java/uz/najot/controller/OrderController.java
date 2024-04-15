@@ -22,8 +22,9 @@ public class OrderController {
     private final AuthApi authApi;
 
     @GetMapping("/do")
-    public String admin(@RequestParam String name, @RequestParam Long id) {
+        public String admin(@RequestParam String name, @RequestParam Long id,@RequestHeader("X-Request-Default-Red") String string) {
 //        Boolean forObject = restTemplate.getForObject("http://AUTH-SERVICE/gratings/get-user/" + id, Boolean.class);
+        log.info("Header: {}", string);
         Boolean forObject = authApi.getUser(String.valueOf(id)).isActive();
         if (forObject==null) {
             return "User not found";

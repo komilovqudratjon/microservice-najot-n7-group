@@ -18,6 +18,7 @@
     <module>product</module>
     <module>eureka-service</module>
     <module>feign-clients</module>
+    <module>gateway</module>
   </modules>
 
   <properties>
