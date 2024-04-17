@@ -1,4 +1,4 @@
-package uz.najot.model;
+package uz.najot.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequestDTO implements Serializable {
-    private String username;
-    private String password;
+public class CheckTokenModel implements Serializable {
+    private String token;
+    private String service;
 }

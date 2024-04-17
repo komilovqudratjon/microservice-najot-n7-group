@@ -3,6 +3,7 @@ package uz.najot.service;
 import uz.najot.confing.PrincipleUser;
 import uz.najot.entity.Users;
 import uz.najot.model.*;
+import uz.najot.order.CheckTokenModel;
 
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface AuthService {
     Users me(PrincipleUser principleUser);
 
     JwtTokenDTO refresh(String token);
+
+    boolean checkToken(CheckTokenModel checkTokenModel);
 }

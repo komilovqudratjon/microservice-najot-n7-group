@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import uz.najot.confing.JwtService;
 import uz.najot.confing.PrincipleUser;
+import uz.najot.confing.UserTokenAuth;
 import uz.najot.entity.*;
 import uz.najot.enums.RoleName;
 import uz.najot.model.*;
+import uz.najot.order.CheckTokenModel;
 import uz.najot.repository.AttachmentRepository;
 import uz.najot.repository.RefreshTokenRepository;
 import uz.najot.repository.UserRepository;
@@ -44,6 +46,8 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final UserDB userDB;
+
 
     @Override
     public JwtTokenDTO login(LoginRequestDTO request) {
@@ -179,6 +183,27 @@ public class AuthServiceImpl implements AuthService {
             return jwtService.generateRefresh(referenceById.getId(), referenceById.getUserId(), byId.getUsername(), byId.getRole());
         }
         return null;
+    }
+
+    @Override
+    public boolean checkToken(CheckTokenModel checkTokenModel) {
+        try {
+            DecodedJWT decode = jwtService.decode(checkTokenModel.getToken());
+            Users userById = userDB.getUserById(Long.valueOf(decode.getSubject()));
+            userById.getRole().forEach(roles -> log.info("Role: {}", roles.getRole()));
+            PrincipleUser user = PrincipleUser.builder()
+                    .id(Long.valueOf(decode.getSubject()))
+                    .username(userById.getUsername())
+                    .password(userById.getPassword())
+                    .roles(userById.getRole())
+                    .active(userById.isActive())
+                    .build();
+            SecurityContextHolder.getContext().setAuthentication(new UserTokenAuth(user));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
 }

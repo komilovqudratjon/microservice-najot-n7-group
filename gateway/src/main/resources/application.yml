@@ -27,6 +27,10 @@ spring:
           filters:
 #            - AddResponseHeader=X-Response-Default-Red, KETMON-ESHMAT4444444
             - AddRequestHeader=X-Request-Default-Red, KETMON-ESHMAT
+        - id: AUTH-SERVICE
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
 
 
     compatibility-verifier:

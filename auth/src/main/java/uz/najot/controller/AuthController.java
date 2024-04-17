@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.najot.confing.PrincipleUser;
 import uz.najot.entity.Users;
 import uz.najot.model.*;
+import uz.najot.order.CheckTokenModel;
 import uz.najot.service.AuthService;
 
 import java.util.List;
@@ -57,6 +58,11 @@ public class AuthController {
     @GetMapping("/me")
     public Users me(@AuthenticationPrincipal PrincipleUser principleUser) {
         return authService.me(principleUser);
+    }
+
+    @PostMapping("/check-token")
+    public boolean checkToken(@RequestBody CheckTokenModel checkTokenModel) {
+        return authService.checkToken(checkTokenModel);
     }
 
 }
